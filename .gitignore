@@ -1,0 +1,10 @@
+venv/
+node_modules/
+.env
+__pycache__/
+*.pyc
+config.json/
+dependency-check/
+logs/
+package.json/
+package-lock.json

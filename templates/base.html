@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Resource Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <style>
+        :root {
+            --transition-fast: 0.2s;
+            --transition-medium: 0.3s;
+            --transition-slow: 0.5s;
+            --bs-body-color: #e9ecef;
+            --bs-body-bg: #212529;
+            
+            /* Dark theme variables only */
+            --primary-color: #0f172a;
+            --secondary-color: #3b82f6;
+            --accent-color: #f43f5e;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+            
+            --background-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Global Styles */
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: var(--text-color) !important;
+            font-weight: 600;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            color: var(--secondary-color);
+            margin-right: 0.75rem;
+            transition: transform var(--transition-medium) ease;
+        }
+
+        .navbar-brand:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.5rem;
+            transition: all var(--transition-fast) ease;
+            margin: 0 0.25rem;
+        }
+
+        .nav-link:hover {
+            color: var(--text-color) !important;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link i {
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .nav-link:hover i {
+            transform: translateX(3px);
+        }
+
+        .nav-item.active .nav-link {
+            color: var(--text-color) !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            margin-bottom: 1.5rem;
+            transition: transform var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .card-header {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            font-weight: 500;
+            transition: all var(--transition-fast) ease;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-sm {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.875rem;
+        }
+
+        /* Form Styles */
+        .form-control {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            transition: all var(--transition-medium) ease;
+        }
+
+        .form-control:focus {
+            background-color: var(--background-color);
+            border-color: var(--secondary-color);
+            color: var (--text-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+        }
+
+        /* List Group Styles */
+        .list-group-item {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+            transition: all var(--transition-fast) ease;
+            padding: 1rem 1.25rem;
+        }
+
+        .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(3px);
+        }
+
+        .list-group-item.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        /* Badge Styles */
+        .badge {
+            padding: 0.35em 0.65em;
+            font-weight: 600;
+            border-radius: 0.375rem;
+        }
+
+        /* Animation Durations */
+        .animate__animated {
+            animation-duration: 0.5s !important;
+        }
+
+        /* Footer Styles */
+        footer {
+            margin-top: auto;
+            padding: 2.5rem 0;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all var(--transition-fast) ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-color);
+            transform: translateY(-3px);
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 350px;
+        }
+
+        .toast {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            animation: slideInRight var(--transition-medium) ease forwards;
+            border-left: 4px solid var(--info-color);
+            color: var(--text-color);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .navbar {
+                padding: 0.75rem 0;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shield-alt"></i> CTF Resource Hub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item" id="nav-home">
+                        <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    
+                    <!-- Resources dropdown -->
+                    <li class="nav-item dropdown" id="nav-resources">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-sitemap"></i> Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('resources_page') }}"><i class="fas fa-list me-2"></i> Browse Resources</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('content_index') }}"><i class="fas fa-th-large me-2"></i> Resource Index</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('add_resource_page') }}"><i class="fas fa-plus-circle me-2"></i> Add Resource</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('favorites_page') }}"><i class="fas fa-star me-2"></i> Favorites</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('category_management') }}"><i class="fas fa-tags me-2"></i> Manage Categories</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Learning dropdown -->
+                    <li class="nav-item dropdown" id="nav-learning">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-graduation-cap"></i> Learning
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('learning_index') }}"><i class="fas fa-list me-2"></i> Browse Materials</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('learning_resource_index') }}"><i class="fas fa-th-large me-2"></i> Learning Index</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('add_learning_resource') }}"><i class="fas fa-plus-circle me-2"></i> Add Material</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('learning_category_management') }}"><i class="fas fa-tags me-2"></i> Manage Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-notes" href="{{ url_for('view_notes') }}">
+                            <i class="fas fa-sticky-note"></i> Notes
+                        </a>
+                    </li>
+                </ul>
+                <!-- Theme toggle button removed -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show animate__animated animate__fadeIn" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="h5 mb-3">CTF Resource Hub</p>
+                <p>Your One-Stop Shop for CTF Tools and Resources</p>
+                <div class="footer-links">
+                    <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" target="_blank"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+                <p class="mt-4">
+                    Built with <i class="fas fa-heart" style="color: var(--accent-color);"></i> for the CTF Community
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast container -->
+    <div class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Theme toggle functionality removed
+        
+        // Always use dark mode
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+        
+        // Active navigation highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.navbar-nav .nav-item');
+            
+            navItems.forEach(item => {
+                const link = item.querySelector('.nav-link');
+                if (link && link.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Home page special case
+            if (currentPath === '/') {
+                document.getElementById('nav-home').classList.add('active');
+            }
+            
+            // Content index special case
+            if (currentPath.includes('content_index')) {
+                document.getElementById('nav-browse').classList.add('active');
+            }
+            
+            // Favorites page special case
+            if (currentPath.includes('favorites')) {
+                document.getElementById('nav-favorites').classList.add('active');
+            }
+            
+            // Add resource special case
+            if (currentPath.includes('add_resource')) {
+                document.getElementById('nav-add').classList.add('active');
+            }
+            
+            // Categories special case
+            if (currentPath.includes('categories')) {
+                document.getElementById('nav-categories').classList.add('active');
+            }
+        });
+        
+        // Global toast notification function
+        function showToast(message, type = 'info') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = message;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto-dismiss after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.5s ease forwards';
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 3000);
+        }
+        
+        // Add animation classes to cards when they appear in view
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeIn');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            
+            const observer = new IntersectionObserver(animateOnScroll, {
+                root: null,
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.card:not(.animate__animated)').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

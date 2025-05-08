@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-4">CTF Resource Hub</h1>
+            <p class="lead mb-4">Your one-stop platform for CTF tools, learning materials, and resources to enhance your Capture The Flag skills.</p>
+            <div class="d-flex justify-content-center gap-2">
+                <a href="{{ url_for('resources_page') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sitemap me-2"></i> Browse Resources
+                </a>
+                <a href="{{ url_for('learning_index') }}" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-graduation-cap me-2"></i> Learning Center
+                </a>
+                <a class="btn btn-primary btn-lg text-white" href="{{ url_for('view_notes') }}" role="button">
+                    <i class="fas fa-sticky-note"></i> Notes
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="h3">Platform Features</h2>
+            <p class="text-muted">Everything you need to organize and improve your CTF skills</p>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-sitemap fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Resource Repository</h3>
+                    <p class="card-text">Explore curated CTF tools and references organized by categories for quick access.</p>
+                    <a href="{{ url_for('resources_page') }}" class="btn btn-sm btn-outline-primary mt-2">Browse Resources</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Learning Center</h3>
+                    <p class="card-text">Access structured learning materials to build your CTF skills from beginner to expert.</p>
+                    <a href="{{ url_for('learning_index') }}" class="btn btn-sm btn-outline-primary mt-2">Start Learning</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-sticky-note fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Notes & Reminders</h3>
+                    <p class="card-text">Keep track of upcoming topics and resources with task management and completion tracking.</p>
+                    <a href="{{ url_for('view_notes') }}" class="btn btn-sm btn-outline-primary mt-2">View Notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Section -->
+    <div class="row mb-5">
+        <div class="col-12 mb-4">
+            <h2 class="h3 text-center">Quick Access</h2>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">Resources</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ url_for('resources_page') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-sitemap me-2 text-primary"></i> Browse All Resources
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('add_resource_page') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-plus-circle me-2 text-success"></i> Add New Resource
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('category_management') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-tags me-2 text-info"></i> Manage Resource Categories
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('content_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-th-large me-2 text-warning"></i> Resource Index
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">Learning Center</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ url_for('learning_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-graduation-cap me-2 text-primary"></i> Browse Learning Resources
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('add_learning_resource') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-plus-circle me-2 text-success"></i> Add Learning Material
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('learning_category_management') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-tags me-2 text-info"></i> Manage Learning Categories
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h5 mb-0">Notes</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ url_for('view_notes') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-sticky-note me-2 text-info"></i> Browse All Notes
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('view_resource_notes') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-folder me-2 text-primary"></i> Resource Notes
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('view_learning_notes') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-graduation-cap me-2 text-success"></i> Learning Notes
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a href="{{ url_for('add_note') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="fas fa-plus-circle me-2 text-warning"></i> Add New Note
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Getting Started Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3 class="h4 mb-0">Getting Started</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex mb-4">
+                        <div class="step-number me-3">1</div>
+                        <div>
+                            <h4 class="h5">Browse Available Resources</h4>
+                            <p>Explore the collection of CTF tools, references, and learning materials to find what you need.</p>
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('resources_page') }}" class="btn btn-sm btn-outline-primary">Browse Resources</a>
+                                <a href="{{ url_for('learning_index') }}" class="btn btn-sm btn-outline-primary">Browse Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="step-number me-3">2</div>
+                        <div>
+                            <h4 class="h5">Add Your Own Content</h4>
+                            <p>Contribute to the community by adding your own resources, learning materials, and notes.</p>
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('add_resource_page') }}" class="btn btn-sm btn-outline-primary">Add Resource</a>
+                                <a href="{{ url_for('add_learning_resource') }}" class="btn btn-sm btn-outline-primary">Add Learning</a>
+                                <a href="{{ url_for('add_note') }}" class="btn btn-sm btn-outline-primary">Add Note</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <div class="step-number me-3">3</div>
+                        <div>
+                            <h4 class="h5">Manage & Organize</h4>
+                            <p>Track your progress, organize with categories, and use notes to remember important tasks.</p>
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('category_management') }}" class="btn btn-sm btn-outline-primary">Resource Categories</a>
+                                <a href="{{ url_for('view_notes') }}" class="btn btn-sm btn-outline-primary">Manage Notes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .feature-icon {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set the home nav item as active
+    document.getElementById('nav-home').classList.add('active');
+    
+    // Animate cards on scroll
+    const animateOnScroll = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+    
+    const observer = new IntersectionObserver(animateOnScroll, {
+        root: null,
+        threshold: 0.1
+    });
+    
+    document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
+{% endblock %}
